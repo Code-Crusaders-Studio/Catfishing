@@ -4,18 +4,33 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private GameObject fish;
+
     public int life = 5;
 
-    void Update()
+    //variável do especial
+    public int curSpecial = 1;
+
+    private void Start()
+    {
+        fish = GameObject.Find("Fish");    
+    }
+
+    private void Update()
     {
         
     }
 
-    public void Attack(GameObject fish)
+    public void Attack()
     {
-        fish.GetComponent<Fish>().life--;
+        if(fish.GetComponent<Fish>().life > 0)
+        {
+            fish.GetComponent<Fish>().life--;
+        }
+        
+        CombatController.curTurn = 'f';
 
-        Debug.Log("Vida do peixe" + fish.GetComponent<Fish>().life);
+        Debug.Log("Gato atacou! Vida do peixe: " + fish.GetComponent<Fish>().life);
     }
 
     public void Recover()
@@ -24,6 +39,16 @@ public class Player : MonoBehaviour
         {
             life++;
         }
-        Debug.Log("Vida do gato" + life);
+
+        CombatController.curTurn = 'f';
+
+        Debug.Log("Gato recuperou vida! Vida do gato: " + life);
+    }
+
+    public void Special()
+    {
+        CombatController.curTurn = 'c';
+
+        Debug.Log("Gato usou o especial " + life);
     }
 }
