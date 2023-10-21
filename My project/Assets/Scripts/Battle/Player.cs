@@ -28,13 +28,13 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        int hitChance = Random.Range(0, 4); //0 = erra, 3 = crítico, 1 ou 2 = ataque normal
+        int hitChance = Random.Range(0, 5); //0 = erra, 1, 2 ou 3 = ataque normal, 4 = crítico
 
         if (hitChance == 0)
         {
             Debug.Log("Gato errou");
         }
-        else if (hitChance == 3)
+        else if (hitChance == 4)
         {
             enemy.GetComponent<Enemy>().curHp -= dmg * 2;
 
