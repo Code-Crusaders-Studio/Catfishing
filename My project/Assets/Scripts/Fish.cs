@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Fish : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class Fish : MonoBehaviour
                 Special();
             }
         }
+
+        if(life <= 0)
+        SceneManager.LoadScene("Selection");
     }
 
     public void Attack()
