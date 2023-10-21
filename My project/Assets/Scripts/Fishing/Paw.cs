@@ -43,7 +43,7 @@ public class Paw : MonoBehaviour
                 LinkedListNode<int> fish = SelectionManager.curFishs.Find(hit.collider.gameObject.GetComponent<FishsFishing>().typeFish);
                 SelectionManager.selectedFish = fish.Value;
                 SelectionManager.curFishs.Remove(fish);
-                SceneManager.LoadScene("Combat");
+                SceneManager.LoadScene("Battle");
                 break;
         }
     }
