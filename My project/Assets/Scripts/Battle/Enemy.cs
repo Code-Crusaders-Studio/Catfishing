@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     private GameObject player;
     public int maxHp, curHp, dmg, heal;
-    public static bool lose = false;
+    public bool lose = false;
 
     private void Start()
     {

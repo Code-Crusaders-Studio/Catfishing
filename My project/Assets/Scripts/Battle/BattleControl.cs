@@ -46,14 +46,14 @@ public class BattleControl : MonoBehaviour
         fishHpDisplay.text = enemy.GetComponent<Enemy>().curHp + " / " + enemy.GetComponent<Enemy>().maxHp;
         catHpDisplay.text = player.GetComponent<Player>().curHp + " / " + player.GetComponent<Player>().maxHp;
 
-        if (Player.lose)
+        if (player.GetComponent<Player>().lose)
         {
             //Trocar pra cena de Game Over
         }
 
-        if (Enemy.lose)
+        if (enemy.GetComponent<Enemy>().lose)
         {
-            SceneManager.LoadScene("Selection");
+            SceneManager.LoadScene("Selection");          
         }
     }
 }
