@@ -1,61 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Paw : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private float dirX, dirY, speed;
-    private bool onFish = false;
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        speed = 4f;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        dirX = Input.GetAxis("Horizontal");
-        dirY = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(dirX, dirY) * speed;
-
-        if (Input.GetKeyDown(KeyCode.Space) && onFish)
-        {
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
-        }
+        //Método de movimentação da pata
+        MovePaw();
+        //Método responsável pela pesca
+        ToFish();
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void MovePaw()
     {
-        if (col.gameObject.CompareTag("Fish"))
-        {
-            onFish = true;
+        //A posição da pata é igual a posição do mouse na tela
+        Vector2 posMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(posMouse.x, posMouse.y, transform.position.z);
+    }
 
-            switch(col.gameObject.name)
+    void ToFish()
+    {
+        //Quando apertamos o botão esquerdo do mouse, lançamos um raycast de um único ponto e verificamos se ele colidiu com algo
+        if (Input.GetMouseButton(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider != null)
             {
-                case "Padrão":
-                SelectionManager.selectedFish = 1;
-                break;
-                case "Realista":
-                SelectionManager.selectedFish = 2;
-                break;
-                case "Pixel":
-                SelectionManager.selectedFish = 3;
-                break;
+                TouchCollision(hit);
             }
-
-            Debug.Log(SelectionManager.selectedFish);
         }
     }
 
-    void OnTriggerExit2D(Collider2D col)
+    void TouchCollision(RaycastHit2D hit)
     {
-        if (col.gameObject.CompareTag("Fish"))
+        switch(hit.collider.gameObject.tag)
         {
-            onFish = false;
+            //Se o raycast colidiu com o peixe então criamos um node que leva como valor o tipo do peixe que colidimos, removemos da lista com os tipos de peixes, o peixe que possui esse node como valor e depois vamos para o combate
+            case "Fish":
+                LinkedListNode<int> fish = SelectionManager.curFishs.Find(hit.collider.gameObject.GetComponent<FishsFishing>().typeFish);
+                SelectionManager.selectedFish = fish.Value;
+                SelectionManager.curFishs.Remove(fish);
+                SceneManager.LoadScene("Combat");
+                break;
         }
     }
 }

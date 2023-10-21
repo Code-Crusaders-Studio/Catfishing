@@ -13,13 +13,13 @@ public class CombatManager : MonoBehaviour
     {
         switch (SelectionManager.selectedFish)
         {
-            case 1:
+            case 0:
             fishNameDisplay.text = "Peixe Padrão";
             break;
-            case 2:
+            case 1:
             fishNameDisplay.text = "Peixe Realista";
             break;
-            case 3:
+            case 2:
             fishNameDisplay.text = "Peixe Pixel";
             break;
         }
