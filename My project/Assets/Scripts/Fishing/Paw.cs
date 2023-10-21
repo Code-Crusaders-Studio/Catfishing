@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class Paw : MonoBehaviour
@@ -19,6 +20,24 @@ public class Paw : MonoBehaviour
         //A posição da pata é igual a posição do mouse na tela
         Vector2 posMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(posMouse.x, posMouse.y, transform.position.z);
+
+        if(transform.position.x > 5)
+        {
+            transform.position = new Vector2(5, transform.position.y);
+        }
+        else if(transform.position.x < -5)
+        {
+            transform.position = new Vector2(-5, transform.position.y);
+        }
+
+        if(transform.position.y > 2)
+        {
+            transform.position = new Vector2(transform.position.x, 2);
+        }
+        else if(transform.position.y < -3)
+        {
+            transform.position = new Vector2(transform.position.x, -3);
+        }
     }
 
     void ToFish()
