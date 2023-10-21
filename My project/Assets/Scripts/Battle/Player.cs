@@ -15,13 +15,15 @@ public class Player : MonoBehaviour
         dmg = 15;
         heal = 20;
 
-        enemy = GameObject.Find("Fish");
+        BattleControl.player = this.gameObject;
+        enemy = BattleControl.enemy;
     }
 
     private void Update()
     {
         if (curHp <= 0)
         {
+            curHp = 0;
             lose = true;
         }
     }

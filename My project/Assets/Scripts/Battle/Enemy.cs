@@ -5,23 +5,24 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private GameObject player;
+    [SerializeField]
     public int maxHp, curHp, dmg, heal;
+    [SerializeField]
+    public string specialType;
+    private int cooldownHeal;
     public bool lose = false;
 
     private void Start()
     {
-        maxHp = 100;
         curHp = maxHp;
-        dmg = 15;
-        heal = 20;
-
-        player = GameObject.Find("Cat");
+        player = BattleControl.player;
     }
 
     private void Update()
     {
         if (curHp <= 0)
         {
+            curHp = 0;
             lose = true;
         }
 
@@ -52,28 +53,47 @@ public class Enemy : MonoBehaviour
         Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
     }
 
-    public void Heal()
+    public void Heal(int curCooldown)
     {
-        if (curHp != maxHp)
-        {
-            curHp += heal;
+        int maxCooldown = 1;
 
-            if (curHp > maxHp)
+        if(curCooldown >= maxCooldown){
+            if (curHp != maxHp)
             {
-                curHp = maxHp;
+                curHp += heal;
+
+                if (curHp > maxHp)
+                {
+                    curHp = maxHp;
+                }
+
+                Debug.Log("Peixe curou | Hp do peixe: " + curHp);
             }
 
-            Debug.Log("Peixe curou | Hp do peixe: " + curHp);
+            BattleControl.curTurn = 0;
+            curCooldown = 0;
         }
-
-        BattleControl.curTurn = 0;
+        else
+        {
+            Debug.Log("Cooldown");
+        }
     }
 
-    public void Special()
+    public void Special(string specialType)
     {
         BattleControl.curTurn = 0;
-
-        Debug.Log("Peixe usou especial");
+        switch(specialType)
+        {
+            case "Especial1":
+                Debug.Log("Peixe usou especial 1");
+                break;
+            case "Especial2":
+                Debug.Log("Peixe usou especial 2");
+                break;
+            case "Especial3":
+                Debug.Log("Peixe usou especial 3");
+                break;
+        }        
     }
 
     private void EnemyAI()
@@ -82,17 +102,19 @@ public class Enemy : MonoBehaviour
         {
             int randomAction = Random.Range(0, 3);
 
-            if (randomAction == 0)
+           if (randomAction == 0)
             {
                 Attack();
+                cooldownHeal++;
             }
-            else if (curHp != maxHp && randomAction == 1)
+            else if (randomAction == 1)
             {
-                Heal();
+                Heal(cooldownHeal);
             }
             else if (randomAction == 2)
             {
-                Special();
+                Special(specialType);
+                cooldownHeal++;
             }
         }
     }

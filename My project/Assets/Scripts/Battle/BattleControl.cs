@@ -6,26 +6,29 @@ using TMPro;
 
 public class BattleControl : MonoBehaviour
 {
-    private GameObject player;
-    private GameObject enemy;
+    public static GameObject enemy, player;
+    public GameObject[] prefFishs;
+
     public TMP_Text fishNameDisplay, fishHpDisplay, catHpDisplay;
     public static int curTurn; //0 = Gato, 1 = Peixe
 
     void Start()
     {
         player = GameObject.Find("Cat");
-        enemy = GameObject.Find("Fish");
 
         switch (SelectionManager.selectedFish)
         {
             case 0:
             fishNameDisplay.text = "Peixe Padrão";
+            enemy = Instantiate(prefFishs[0]);
             break;
             case 1:
             fishNameDisplay.text = "Peixe Realista";
+            enemy = Instantiate(prefFishs[1]);
             break;
             case 2:
             fishNameDisplay.text = "Peixe Pixel";
+            enemy = Instantiate(prefFishs[2]);
             break;
         }
 
