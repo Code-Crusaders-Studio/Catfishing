@@ -34,9 +34,14 @@ public class FishsFishing : MonoBehaviour
     void MoveFish()
     {
         //Limitando o espaço onde o peixe pode se movimentar
-        if(transform.position.x > 5.5f || transform.position.x < -5.5f){
-            dirX *= -1;
+        if(transform.position.x > 5.5f){
+            dirX = -1;
         }
+        else if(transform.position.x < -5.5f)
+        {
+            dirX = 1;
+        }
+        
         //Movendo o peixe
         transform.Translate(new Vector2(dirX * spdFinal, 0) * Time.deltaTime);
     }

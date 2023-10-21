@@ -28,7 +28,10 @@ public class Spawner : MonoBehaviour
         {
             if(instFish == prefFishs[instFish].GetComponent<FishsFishing>().typeFish)
             {
-                Instantiate(prefFishs[instFish]);
+                int posX = Random.Range(-5, 5);
+                int posy = Random.Range(-3, 2);
+
+                Instantiate(prefFishs[instFish], new Vector2(posX, posy), Quaternion.identity);
             }
         }
     }
