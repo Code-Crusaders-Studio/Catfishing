@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Fish : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public GameObject cat;
 
-    public int life = 5;
+    public int enemyHp = 5;
 
     public int curSpecial = 1;
 
@@ -18,7 +18,7 @@ public class Fish : MonoBehaviour
 
     private void Update() 
     {
-        if(CombatController.curTurn == 'f')
+        if(CombatManager.curTurn == 1)
         {
             float rand = Random.Range(0, 10);
 
@@ -36,38 +36,38 @@ public class Fish : MonoBehaviour
             }
         }
 
-        if(life <= 0)
+        if(enemyHp <= 0)
         SceneManager.LoadScene("Selection");
     }
 
     public void Attack()
     {
-        if(cat.GetComponent<Player>().life > 0)
+        if(cat.GetComponent<Player>().playerHp > 0)
         {
-            cat.GetComponent<Player>().life--;
+            cat.GetComponent<Player>().playerHp--;
         }
 
-        CombatController.curTurn = 'c';
+        CombatManager.curTurn = 0;
 
-        Debug.Log("Peixe atacou! Vida do gato: " + cat.GetComponent<Player>().life);
+        Debug.Log("Peixe atacou! Vida do gato: " + cat.GetComponent<Player>().playerHp);
     }
 
     public void Recover()
     {        
-        if(life < 10)
+        if(enemyHp < 10)
         {
-            life++;
+            enemyHp++;
         }
 
-        CombatController.curTurn = 'c';
+        CombatManager.curTurn = 0;
 
-        Debug.Log("Peixe recuperou vida! Vida do peixe: " + life);
+        Debug.Log("Peixe recuperou vida! Vida do peixe: " + enemyHp);
     }
 
     public void Special()
     {
-        CombatController.curTurn = 'f';
+        CombatManager.curTurn = 1;
 
-        Debug.Log("Peixe usou o especial " + life);
+        Debug.Log("Peixe usou o especial " + enemyHp);
     }
 }

@@ -7,6 +7,7 @@ using TMPro;
 public class CombatManager : MonoBehaviour
 {
     public TMP_Text fishNameDisplay;
+    public static int curTurn; //0 = Gato, 1 = Peixe
 
     void Start()
     {
@@ -22,6 +23,8 @@ public class CombatManager : MonoBehaviour
             fishNameDisplay.text = "Peixe Pixel";
             break;
         }
+
+        curTurn = Random.Range(0, 2);
     }
 
     void Update()
