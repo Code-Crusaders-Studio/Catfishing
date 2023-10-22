@@ -4,180 +4,190 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] public int maxHp, curHp, dmg, heal;
-    [SerializeField] public string specialType;
-    public bool isDead = false, isBuffed = false;
-    private int healCd = 1, specialCd = 3;
     private GameObject player;
+
+    public int maxHp, curHp, dmg, heal;
+    public string specialType;
+
+    public bool isDead = false,  burning = false;
+    private bool isBuffed = false, canBurn = false;
+
+    private int healCd = 1, specialCd = 3;
 
     private void Start()
     {
-        curHp = maxHp;
         player = BattleControl.player;
+
+        curHp = maxHp;        
     }
 
     private void Update()
+    {
+        EnemyAi();
+
+        Dead();
+        Burnning();
+    }
+
+    private void Dead()
     {
         if (curHp <= 0)
         {
             curHp = 0;
             isDead = true;
         }
+    }
 
-        EnemyAI();
+    private void Burnning()
+    {
+        if(BattleControl.curTurn == 1)
+        {
+            canBurn = true;
+        }
+
+        if(canBurn && burning && BattleControl.curTurn == 0)
+        {
+            curHp -= 5;
+            Debug.Log("Gato está queimando");
+
+            canBurn = false;
+        }
+    }
+
+    public void EnemyAi()
+    {
+        if(BattleControl.curTurn == 1){
+            float action;
+            action = Random.Range(0, 30);
+
+            if(action <= 10)
+            {
+                Attack();
+
+                specialCd++;
+                healCd++;
+                BattleControl.curTurn = 0;
+            }
+            else if(action > 10 && action <= 20)
+            {
+                if(curHp != maxHp && healCd >= 1){
+                    Heal();
+                    specialCd++;
+                    healCd = 0;
+                    BattleControl.curTurn = 0;
+                }
+                else if(curHp == maxHp || healCd < 1)
+                {
+                    BattleControl.curTurn = 1;
+                }                
+            }
+            else
+            {
+                if(specialCd >= 3)
+                {
+                    switch (specialType)
+                    {
+                        case "Queimar":
+                            Burn();
+                            BattleControl.curTurn = 0;
+                            Debug.Log("Peixe usou Queimar");
+                            break;
+                        case "Congelar":
+                            Frost();
+                            BattleControl.curTurn = 1;
+                            Debug.Log("Peixe usou Congelar");
+                            break;
+                        case "Enfurecer":
+                            Buff();
+                            BattleControl.curTurn = 0;
+                            Debug.Log("Peixe usou Enfurecer");
+                            break;
+                    }
+
+                    healCd++;
+                    specialCd = 0;
+                }
+                else
+                {
+                    BattleControl.curTurn = 1;
+                }
+            }
+        }
     }
 
     public void Attack()
     {
-        int hitChance = Random.Range(0, 5); //Sem estar buffado: 0 = erra, 1, 2 ou 3 = ataque normal, 4 = crítico || Buffado: 0 ou 1, 2 = ataque normal, 3 ou 4 = crítico
+        if(BattleControl.curTurn == 1){
+            int hitChance = Random.Range(0, 5); //0 = erra, 1, 2 ou 3 = ataque normal, 4 = crítico
 
-        if (isBuffed)
-        {
-            if (hitChance <= 1)
+            if (isBuffed)
             {
-                Debug.Log("Peixe errou");
-            }
-            else if (hitChance >= 3)
-            {
-                player.GetComponent<Player>().curHp -= dmg * 2;
+                int dmgBuff = dmg * 2;
 
-                Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
-            }
-            else
-            {
-                player.GetComponent<Player>().curHp -= dmg;
+                if (hitChance <= 1)
+                {
+                    Debug.Log("Buff / Peixe errou");
+                }
+                else if (hitChance >= 3)
+                {
+                    player.GetComponent<Player>().curHp -= dmgBuff * 2;
 
-                Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
-            }
-        }
-        else
-        {
-            if (hitChance == 0)
-            {
-                Debug.Log("Peixe errou");
-            }
-            else if (hitChance == 4)
-            {
-                player.GetComponent<Player>().curHp -= dmg * 2;
+                    Debug.Log("Buff / Peixe deu dano crítico | Dano: " + dmgBuff * 2);
+                }
+                else
+                {
+                    player.GetComponent<Player>().curHp -= dmgBuff;
 
-                Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
+                    Debug.Log("Buff / Peixe atacou | Dano: " + dmgBuff);
+                }
+
+                isBuffed = false;
             }
             else
             {
-                player.GetComponent<Player>().curHp -= dmg;
+                if (hitChance == 0)
+                {
+                    Debug.Log("Peixe errou");
+                }
+                else if (hitChance == 4)
+                {
+                    player.GetComponent<Player>().curHp -= dmg * 2;
 
-                Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
-            }
+                    Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
+                }
+                else
+                {
+                    player.GetComponent<Player>().curHp -= dmg;
+
+                    Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
+                }
+            }            
         }
-
-        BattleControl.curTurn = 0;
     }
 
     public void Heal()
     {
-        int cdCounter = 1;
+        curHp += heal;
 
-        if (healCd >= cdCounter)
-        {
-            if (curHp != maxHp)
+            if (curHp > maxHp)
             {
-                curHp += heal;
-
-                if (curHp > maxHp)
-                {
-                    curHp = maxHp;
-                }
-
-                specialCd++;
-                healCd = 0;
-                BattleControl.curTurn = 0;
-
-                Debug.Log("Peixe curou | Hp do peixe: " + curHp);
+                curHp = maxHp;
             }
-            else
-            {
-                Debug.Log("Peixe está com a vida máxima.");
-            }
-        }
-        else
-        {
-            Debug.Log("Cura em cooldown");
-        }
+            Debug.Log("Peixe curou | Hp do peixe: " + curHp);        
     }
 
-    public void Special()
+    public void Buff()
     {
-        int cdCounter = 3;
-
-        if (specialCd >= cdCounter)
-        {
-            switch (specialType)
-            {
-                case "Queimar":
-                    Debug.Log("Peixe usou Queimar");
-                    break;
-                case "Congelar":
-                    Debug.Log("Peixe usou Congelar");
-                    break;
-                case "Enfurecer":
-                    Buff();
-                    Debug.Log("Peixe usou Enfurecer | Dano: " + dmg); 
-                    break;
-            }
-
-            healCd++;
-            specialCd = 0;
-            BattleControl.curTurn = 0;
-        }
-        else
-        {
-            Debug.Log("Especial em cooldown");
-        }
-    }
-
-    private void EnemyAI()
-    {
-        if (BattleControl.curTurn == 1)
-        {
-            int rAction = Random.Range(0, 3);
-
-            if (rAction == 0)
-            {
-                Attack();
-                specialCd++;
-                healCd++;
-            }
-            else if (rAction == 1)
-            {
-                if (curHp < maxHp)
-                {
-                    Heal();
-                    specialCd++;
-                }
-                else
-                {
-                    rAction = Random.Range(0, 3);
-                }
-
-            }
-            else if (rAction == 2)
-            {
-                if (specialCd >= 3)
-                {
-                    Special();
-                    healCd++;
-                }
-                else
-                {
-                    rAction = Random.Range(0, 3);
-                }
-            }
-        }
-    }
-
-    private void Buff()
-    {
-        dmg *= 2;
         isBuffed = true;
+    }
+
+    public void Burn()
+    {
+        player.GetComponent<Player>().burning = true;
+    }
+
+    public void Frost()
+    {
+        player.GetComponent<Player>().curHp -= 10;
     }
 }
