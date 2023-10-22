@@ -96,14 +96,14 @@ public class Player : MonoBehaviour
             {
                 switch (specialType)
                 {
-                    case "Especial1":
-                        Debug.Log("Gato usou especial 1");
+                    case "Queimar":
+                        Debug.Log("Gato usou Queimar");
                         break;
-                    case "Especial2":
-                        Debug.Log("Gato usou especial 2");
+                    case "Congelar":
+                        Debug.Log("Gato usou Congelar");
                         break;
-                    case "Especial3":
-                        Debug.Log("Gato usou especial 3");
+                    case "Enfurecer":
+                        Debug.Log("Gato usou Enfurecer");
                         break;
                 }
 

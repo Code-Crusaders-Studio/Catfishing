@@ -48,5 +48,6 @@ MonoBehaviour:
   curHp: 0
   dmg: 15
   heal: 20
-  specialType: Especial1
-  lose: 0
+  specialType: Queimar
+  isDead: 0
+  isBuffed: 0

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] public int maxHp, curHp, dmg, heal;
     [SerializeField] public string specialType;
-    public bool isDead = false;
+    public bool isDead = false, isBuffed = false;
     private int healCd = 1, specialCd = 3;
     private GameObject player;
 
@@ -29,23 +29,45 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        int hitChance = Random.Range(0, 5); //0 = erra, 1, 2 ou 3 = ataque normal, 4 = crítico
+        int hitChance = Random.Range(0, 5); //Sem estar buffado: 0 = erra, 1, 2 ou 3 = ataque normal, 4 = crítico || Buffado: 0 ou 1, 2 = ataque normal, 3 ou 4 = crítico
 
-        if (hitChance == 0)
+        if (isBuffed)
         {
-            Debug.Log("Peixe errou");
-        }
-        else if (hitChance == 4)
-        {
-            player.GetComponent<Player>().curHp -= dmg * 2;
+            if (hitChance <= 1)
+            {
+                Debug.Log("Peixe errou");
+            }
+            else if (hitChance >= 3)
+            {
+                player.GetComponent<Player>().curHp -= dmg * 2;
 
-            Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
+                Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
+            }
+            else
+            {
+                player.GetComponent<Player>().curHp -= dmg;
+
+                Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
+            }
         }
         else
         {
-            player.GetComponent<Player>().curHp -= dmg;
+            if (hitChance == 0)
+            {
+                Debug.Log("Peixe errou");
+            }
+            else if (hitChance == 4)
+            {
+                player.GetComponent<Player>().curHp -= dmg * 2;
 
-            Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
+                Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
+            }
+            else
+            {
+                player.GetComponent<Player>().curHp -= dmg;
+
+                Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
+            }
         }
 
         BattleControl.curTurn = 0;
@@ -65,17 +87,17 @@ public class Enemy : MonoBehaviour
                 {
                     curHp = maxHp;
                 }
-                
+
                 specialCd++;
-                healCd = 0; 
+                healCd = 0;
                 BattleControl.curTurn = 0;
 
                 Debug.Log("Peixe curou | Hp do peixe: " + curHp);
             }
             else
             {
-                Debug.Log("Peixe está com a vida máxima. Escolha outra ação");
-            }                       
+                Debug.Log("Peixe está com a vida máxima.");
+            }
         }
         else
         {
@@ -91,14 +113,15 @@ public class Enemy : MonoBehaviour
         {
             switch (specialType)
             {
-                case "Especial1":
-                    Debug.Log("Peixe usou especial 1");
+                case "Queimar":
+                    Debug.Log("Peixe usou Queimar");
                     break;
-                case "Especial2":
-                    Debug.Log("Peixe usou especial 2");
+                case "Congelar":
+                    Debug.Log("Peixe usou Congelar");
                     break;
-                case "Especial3":
-                    Debug.Log("Peixe usou especial 3");
+                case "Enfurecer":
+                    Buff();
+                    Debug.Log("Peixe usou Enfurecer | Dano: " + dmg); 
                     break;
             }
 
@@ -126,7 +149,7 @@ public class Enemy : MonoBehaviour
             }
             else if (rAction == 1)
             {
-                if(curHp < maxHp)
+                if (curHp < maxHp)
                 {
                     Heal();
                     specialCd++;
@@ -135,19 +158,26 @@ public class Enemy : MonoBehaviour
                 {
                     rAction = Random.Range(0, 3);
                 }
-                
+
             }
             else if (rAction == 2)
             {
-                if(specialCd >= 3){
+                if (specialCd >= 3)
+                {
                     Special();
                     healCd++;
                 }
                 else
                 {
                     rAction = Random.Range(0, 3);
-                }                
+                }
             }
         }
+    }
+
+    private void Buff()
+    {
+        dmg *= 2;
+        isBuffed = true;
     }
 }

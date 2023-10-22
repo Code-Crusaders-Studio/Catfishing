@@ -48,5 +48,6 @@ MonoBehaviour:
   curHp: 0
   dmg: 10
   heal: 10
-  specialType: Especial3
-  lose: 0
+  specialType: Enfurecer
+  isDead: 0
+  isBuffed: 0
