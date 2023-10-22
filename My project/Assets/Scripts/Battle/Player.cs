@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     {
         curHp = maxHp;
 
+        specialType = SelectionManager.specialTypePlayer;
+
         BattleControl.player = this.gameObject;
         enemy = BattleControl.enemy;
     }
@@ -89,28 +91,34 @@ public class Player : MonoBehaviour
     {
         int cdCounter = 3;
 
-        if (specialCd >= cdCounter)
-        {
-            switch (specialType)
+        if(specialType != null){
+            if (specialCd >= cdCounter)
             {
-                case "Especial1":
-                    Debug.Log("Gato usou especial 1");
-                    break;
-                case "Especial2":
-                    Debug.Log("Gato usou especial 2");
-                    break;
-                case "Especial3":
-                    Debug.Log("Gato usou especial 3");
-                    break;
-            }
+                switch (specialType)
+                {
+                    case "Especial1":
+                        Debug.Log("Gato usou especial 1");
+                        break;
+                    case "Especial2":
+                        Debug.Log("Gato usou especial 2");
+                        break;
+                    case "Especial3":
+                        Debug.Log("Gato usou especial 3");
+                        break;
+                }
 
-            healCd++;
-            specialCd = 0;
-            BattleControl.curTurn = 1;
+                healCd++;
+                specialCd = 0;
+                BattleControl.curTurn = 1;
+            }
+            else
+            {
+                Debug.Log("Especial em cooldown");
+            }
         }
         else
         {
-            Debug.Log("Especial em cooldown");
+            Debug.Log("Você ainda não possui um ataque especial");
         }
     }
 }

@@ -10,4 +10,6 @@ public class SelectionManager
     public static LinkedList<int> curFishs;
 
     public static int selectedFish;
+
+    public static string specialTypePlayer;
 }

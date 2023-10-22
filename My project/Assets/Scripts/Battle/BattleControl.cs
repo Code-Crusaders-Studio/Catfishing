@@ -6,15 +6,16 @@ using TMPro;
 
 public class BattleControl : MonoBehaviour
 {
+    public GameObject combatUi, upgradeUi;
+    private bool inBattle = true;
+
     public static GameObject enemy, player;
     public GameObject[] prefFishs;
-    public TMP_Text fishNameDisplay, fishHpDisplay, catHpDisplay;
+    public TMP_Text fishNameDisplay, fishHpDisplay, catHpDisplay, upgradeDisplay;
     public static int curTurn; //0 = Gato, 1 = Peixe
 
     void Start()
     {
-        player = GameObject.Find("Cat");
-
         switch (SelectionManager.selectedFish)
         {
             case 0:
@@ -45,17 +46,40 @@ public class BattleControl : MonoBehaviour
 
     void Update()
     {
-        fishHpDisplay.text = enemy.GetComponent<Enemy>().curHp + " / " + enemy.GetComponent<Enemy>().maxHp;
-        catHpDisplay.text = player.GetComponent<Player>().curHp + " / " + player.GetComponent<Player>().maxHp;
+        if(inBattle){
+            combatUi.SetActive(true);
+            upgradeUi.SetActive(false);
 
-        if (player.GetComponent<Player>().isDead)
-        {
-            //Trocar pra cena de Game Over
-        }
+            fishHpDisplay.text = enemy.GetComponent<Enemy>().curHp + " / " + enemy.GetComponent<Enemy>().maxHp;
+            catHpDisplay.text = player.GetComponent<Player>().curHp + " / " + player.GetComponent<Player>().maxHp;
 
-        if (enemy.GetComponent<Enemy>().isDead)
-        {
-            SceneManager.LoadScene("Selection");
+            if (player.GetComponent<Player>().isDead)
+            {
+                //Trocar pra cena de Game Over
+            }
+
+            if (enemy.GetComponent<Enemy>().isDead)
+            {
+                inBattle = false;
+            }
         }
+        else
+        {
+            combatUi.SetActive(false);
+            upgradeUi.SetActive(true);
+
+            upgradeDisplay.text = "Deseja aprender a habilidade " + enemy.GetComponent<Enemy>().specialType + "?";
+        }
+    }
+
+    public void AcceptUpgrade()
+    {
+        SelectionManager.specialTypePlayer = enemy.GetComponent<Enemy>().specialType;
+        SceneManager.LoadScene("Selection");
+    }
+
+    public void RecuseUpgrade()
+    {
+        SceneManager.LoadScene("Selection");
     }
 }
