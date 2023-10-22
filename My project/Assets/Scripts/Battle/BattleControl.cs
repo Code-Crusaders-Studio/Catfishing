@@ -8,7 +8,6 @@ public class BattleControl : MonoBehaviour
 {
     public static GameObject enemy, player;
     public GameObject[] prefFishs;
-
     public TMP_Text fishNameDisplay, fishHpDisplay, catHpDisplay;
     public static int curTurn; //0 = Gato, 1 = Peixe
 
@@ -19,21 +18,21 @@ public class BattleControl : MonoBehaviour
         switch (SelectionManager.selectedFish)
         {
             case 0:
-            fishNameDisplay.text = "Peixe Padrão";
-            enemy = Instantiate(prefFishs[0]);
-            break;
+                fishNameDisplay.text = "Peixe Sol";
+                enemy = Instantiate(prefFishs[0]);
+                break;
             case 1:
-            fishNameDisplay.text = "Peixe Realista";
-            enemy = Instantiate(prefFishs[1]);
-            break;
+                fishNameDisplay.text = "Peixe Lua";
+                enemy = Instantiate(prefFishs[1]);
+                break;
             case 2:
-            fishNameDisplay.text = "Peixe Pixel";
-            enemy = Instantiate(prefFishs[2]);
-            break;
+                fishNameDisplay.text = "Peixe Bombado";
+                enemy = Instantiate(prefFishs[2]);
+                break;
         }
 
         curTurn = Random.Range(0, 2);
-        
+
         if (curTurn == 0)
         {
             Debug.Log("Turno do gato");
@@ -49,14 +48,14 @@ public class BattleControl : MonoBehaviour
         fishHpDisplay.text = enemy.GetComponent<Enemy>().curHp + " / " + enemy.GetComponent<Enemy>().maxHp;
         catHpDisplay.text = player.GetComponent<Player>().curHp + " / " + player.GetComponent<Player>().maxHp;
 
-        if (player.GetComponent<Player>().lose)
+        if (player.GetComponent<Player>().isDead)
         {
             //Trocar pra cena de Game Over
         }
 
-        if (enemy.GetComponent<Enemy>().lose)
+        if (enemy.GetComponent<Enemy>().isDead)
         {
-            SceneManager.LoadScene("Selection");          
+            SceneManager.LoadScene("Selection");
         }
     }
 }

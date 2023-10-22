@@ -1465,7 +1465,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1912885317}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Heal
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1694,7 +1694,8 @@ MonoBehaviour:
   curHp: 0
   dmg: 0
   heal: 0
-  lose: 0
+  specialType: 
+  isDead: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

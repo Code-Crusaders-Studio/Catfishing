@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7558533932724828212}
   - component: {fileID: -6424954191481984009}
   m_Layer: 0
-  m_Name: "Padr\xE3o"
+  m_Name: Peixe Sol
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
