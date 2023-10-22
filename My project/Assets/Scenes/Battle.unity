@@ -2190,6 +2190,7 @@ MonoBehaviour:
   heal: 20
   specialType: Especial1
   isDead: 0
+  burning: 0
 --- !u!1 &1967176504
 GameObject:
   m_ObjectHideFlags: 0

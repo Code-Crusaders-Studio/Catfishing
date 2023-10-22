@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7187025135219470916}
   - component: {fileID: 421503204945880075}
+  - component: {fileID: -2222740550258056122}
   m_Layer: 0
   m_Name: Peixe Bombado
   m_TagString: Untagged
@@ -50,4 +51,25 @@ MonoBehaviour:
   heal: 10
   specialType: Enfurecer
   isDead: 0
-  isBuffed: 0
+  burning: 0
+--- !u!95 &-2222740550258056122
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6597172943217077474}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50abbf6a6f6b4cc468d50db25b397d50, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
