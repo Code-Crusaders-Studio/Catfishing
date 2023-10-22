@@ -46,7 +46,7 @@ public class IntroScript : MonoBehaviour
         }
     }
 
-     IEnumerator Intro(float cronometro = 5f)
+     IEnumerator Intro(float cronometro = 2f)
      {
         while (true)
         {

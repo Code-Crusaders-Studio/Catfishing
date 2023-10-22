@@ -5,14 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public SceneLoader sceneLoader;
+    public string sceneName;
+    public GameObject mainMenu, creditsPanel, optionsPanel;
+
     public void Play()
     {
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        sceneLoader.Transition(sceneName);
     }
 
-    public void Credits()
+    public void OpenCredits()
     {
+        creditsPanel.SetActive(true);
+        mainMenu.SetActive(false);
+    }
 
+    public void CloseCredits()
+    {
+        creditsPanel.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    public void OpenOptions()
+    {
+        optionsPanel.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    public void CloseOptions()
+    {
+        optionsPanel.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     public void Quit()

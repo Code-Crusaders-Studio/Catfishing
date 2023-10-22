@@ -4,11 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Paw : MonoBehaviour
 {
+    public Image mouseClickDisplay;
+
     void Update()
     {
+        mouseClickDisplay.transform.position = new Vector2(transform.position.x, transform.position.y - 2);
+
         //Método de movimentação da pata
         MovePaw();
         //Método responsável pela pesca
@@ -64,6 +69,22 @@ public class Paw : MonoBehaviour
                 SelectionManager.curFishs.Remove(fish);
                 SceneManager.LoadScene("Battle");
                 break;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Fish"))
+        {
+            mouseClickDisplay.enabled = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Fish"))
+        {
+            mouseClickDisplay.enabled = false;
         }
     }
 }
