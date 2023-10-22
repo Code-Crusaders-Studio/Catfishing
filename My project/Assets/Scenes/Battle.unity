@@ -578,7 +578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &527957242
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1307,7 +1307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1124537661
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2188,9 +2188,8 @@ MonoBehaviour:
   curHp: 0
   dmg: 15
   heal: 20
-  specialType: 
+  specialType: Especial1
   isDead: 0
-  isBuffed: 0
 --- !u!1 &1967176504
 GameObject:
   m_ObjectHideFlags: 0
