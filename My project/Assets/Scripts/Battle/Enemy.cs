@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] public int maxHp, curHp, dmg, heal;
     [SerializeField] public string specialType;
     public bool isDead = false;
-    private int healCd, specialCd;
+    private int healCd = 1, specialCd = 3;
     private GameObject player;
 
     private void Start()
@@ -51,11 +51,11 @@ public class Enemy : MonoBehaviour
         BattleControl.curTurn = 0;
     }
 
-    public void Heal(int cdValue)
+    public void Heal()
     {
         int cdCounter = 1;
 
-        if (cdValue >= cdCounter)
+        if (healCd >= cdCounter)
         {
             if (curHp != maxHp)
             {
@@ -65,12 +65,17 @@ public class Enemy : MonoBehaviour
                 {
                     curHp = maxHp;
                 }
+                
+                specialCd++;
+                healCd = 0; 
+                BattleControl.curTurn = 0;
 
                 Debug.Log("Peixe curou | Hp do peixe: " + curHp);
             }
-
-            cdValue = 0;
-            BattleControl.curTurn = 0;
+            else
+            {
+                Debug.Log("Peixe está com a vida máxima. Escolha outra ação");
+            }                       
         }
         else
         {
@@ -78,21 +83,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Special(string specialType)
+    public void Special()
     {
-        BattleControl.curTurn = 0;
+        int cdCounter = 3;
 
-        switch (specialType)
+        if (specialCd >= cdCounter)
         {
-            case "Especial1":
-                Debug.Log("Peixe usou especial 1");
-                break;
-            case "Especial2":
-                Debug.Log("Peixe usou especial 2");
-                break;
-            case "Especial3":
-                Debug.Log("Peixe usou especial 3");
-                break;
+            switch (specialType)
+            {
+                case "Especial1":
+                    Debug.Log("Peixe usou especial 1");
+                    break;
+                case "Especial2":
+                    Debug.Log("Peixe usou especial 2");
+                    break;
+                case "Especial3":
+                    Debug.Log("Peixe usou especial 3");
+                    break;
+            }
+
+            healCd++;
+            specialCd = 0;
+            BattleControl.curTurn = 0;
+        }
+        else
+        {
+            Debug.Log("Especial em cooldown");
         }
     }
 
@@ -105,16 +121,32 @@ public class Enemy : MonoBehaviour
             if (rAction == 0)
             {
                 Attack();
+                specialCd++;
                 healCd++;
             }
             else if (rAction == 1)
             {
-                Heal(healCd);
+                if(curHp < maxHp)
+                {
+                    Heal();
+                    specialCd++;
+                }
+                else
+                {
+                    rAction = Random.Range(0, 3);
+                }
+                
             }
             else if (rAction == 2)
             {
-                Special(specialType);
-                healCd++;
+                if(specialCd >= 3){
+                    Special();
+                    healCd++;
+                }
+                else
+                {
+                    rAction = Random.Range(0, 3);
+                }                
             }
         }
     }

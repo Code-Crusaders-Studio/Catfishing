@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int maxHp, curHp, dmg, heal;
-    public string specialType;
+    [SerializeField] public int maxHp, curHp, dmg, heal;
+    [SerializeField] public string specialType;
     public bool isDead = false;
-    private int healCd, specialCd;
+    private int healCd = 1, specialCd = 3;
     private GameObject enemy;
 
     private void Start()
     {
-        maxHp = 100;
         curHp = maxHp;
-        dmg = 15;
-        heal = 20;
 
         BattleControl.player = this.gameObject;
         enemy = BattleControl.enemy;
@@ -51,15 +48,16 @@ public class Player : MonoBehaviour
             Debug.Log("Gato atacou | Hp do peixe: " + enemy.GetComponent<Enemy>().curHp);
         }
 
+        specialCd++;
         healCd++;
         BattleControl.curTurn = 1;
     }
 
-    public void Heal(int cdValue)
+    public void Heal()
     {
         int cdCounter = 1;
 
-        if (cdValue >= cdCounter)
+        if (healCd >= cdCounter)
         {
             if (curHp != maxHp)
             {
@@ -69,16 +67,17 @@ public class Player : MonoBehaviour
                 {
                     curHp = maxHp;
                 }
+                
+                specialCd++;
+                healCd = 0; 
+                BattleControl.curTurn = 1;
 
                 Debug.Log("Gato curou | Hp do gato: " + curHp);
             }
             else
             {
                 Debug.Log("Gato está com a vida máxima. Escolha outra ação");
-            }
-
-            cdValue = 0;
-            BattleControl.curTurn = 1;
+            }                       
         }
         else
         {
@@ -88,9 +87,30 @@ public class Player : MonoBehaviour
 
     public void Special()
     {
-        healCd++;
-        BattleControl.curTurn = 1;
+        int cdCounter = 3;
 
-        Debug.Log("Gato usou especial");
+        if (specialCd >= cdCounter)
+        {
+            switch (specialType)
+            {
+                case "Especial1":
+                    Debug.Log("Gato usou especial 1");
+                    break;
+                case "Especial2":
+                    Debug.Log("Gato usou especial 2");
+                    break;
+                case "Especial3":
+                    Debug.Log("Gato usou especial 3");
+                    break;
+            }
+
+            healCd++;
+            specialCd = 0;
+            BattleControl.curTurn = 1;
+        }
+        else
+        {
+            Debug.Log("Especial em cooldown");
+        }
     }
 }
