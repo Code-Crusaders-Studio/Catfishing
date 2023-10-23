@@ -55,7 +55,8 @@ public class BattleControl : MonoBehaviour
 
             if (player.GetComponent<Player>().isDead)
             {
-                //Trocar pra cena de Game Over
+                inBattle = false;
+                SceneManager.LoadScene("Game Over");
             }
 
             if (enemy.GetComponent<Enemy>().isDead)
