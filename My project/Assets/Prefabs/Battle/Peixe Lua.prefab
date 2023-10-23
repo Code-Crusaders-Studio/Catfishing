@@ -51,7 +51,7 @@ MonoBehaviour:
   burnAudio: {fileID: 8300000, guid: d1da48e1e80e33543ba09d04b940570f, type: 3}
   frostAudio: {fileID: 8300000, guid: 0a4ede08a81e60e4d8fe5976c6009e7b, type: 3}
   buffAudio: {fileID: 8300000, guid: 425b94ed493dc7c44ad4b5bd84cf0765, type: 3}
-  deathAudio: {fileID: 8300000, guid: 3b8aaabf86a7ff8478c78a9c61d55a45, type: 3}
+  deathAudio: {fileID: 8300000, guid: 3a78f68a0ad40e94aba56192951c5157, type: 3}
   maxHp: 150
   curHp: 0
   dmg: 10

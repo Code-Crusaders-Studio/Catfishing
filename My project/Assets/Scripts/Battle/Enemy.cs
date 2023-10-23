@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
         {
             curHp = 0;
             isDead = true;
-            audioSource.PlayOneShot(deathAudio, 1f);
+            audioSource.PlayOneShot(deathAudio, 0.3f);
         }
     }
 
