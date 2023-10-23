@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private GameObject enemy;
+    public AudioClip atkAudio, healAudio, critAudio, burnAudio, frostAudio, buffAudio, deathAudio;
+    private AudioSource audioSource;
 
     public int maxHp, curHp, dmg, heal;
     public string specialType;
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         BattleControl.player = this.gameObject;
         enemy = BattleControl.enemy;
 
@@ -27,7 +30,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Dead();
-        Burnning();
+        Burning();
     }
 
     private void Dead()
@@ -36,10 +39,11 @@ public class Player : MonoBehaviour
         {
             curHp = 0;
             isDead = true;
+            audioSource.PlayOneShot(deathAudio, 1f);
         }
     }
 
-    private void Burnning()
+    private void Burning()
     {
         if(BattleControl.curTurn == 0)
         {
@@ -50,7 +54,7 @@ public class Player : MonoBehaviour
         {
             curHp -= 5;
             Debug.Log("Gato está queimando");
-
+            audioSource.PlayOneShot(burnAudio, 1f);
             canBurn = false;
         }
     }
@@ -70,13 +74,13 @@ public class Player : MonoBehaviour
                 else if (hitChance >= 3)
                 {
                     enemy.GetComponent<Enemy>().curHp -= dmgBuff * 2;
-
+                    audioSource.PlayOneShot(critAudio, 1f);
                     Debug.Log("Buff / Gato deu dano crítico | Dano: " + dmgBuff * 2);
                 }
                 else
                 {
                     enemy.GetComponent<Enemy>().curHp -= dmgBuff;
-
+                    audioSource.PlayOneShot(atkAudio, 1f);
                     Debug.Log("Buff / Gato atacou | Dano: " + dmgBuff);
                 }
 
@@ -91,13 +95,13 @@ public class Player : MonoBehaviour
                 else if (hitChance == 4)
                 {
                     enemy.GetComponent<Enemy>().curHp -= dmg * 2;
-
+                    audioSource.PlayOneShot(critAudio, 1f);
                     Debug.Log("Gato deu dano crítico | Hp do peixe: " + enemy.GetComponent<Enemy>().curHp);
                 }
                 else
                 {
                     enemy.GetComponent<Enemy>().curHp -= dmg;
-
+                    audioSource.PlayOneShot(atkAudio, 1f);
                     Debug.Log("Gato atacou | Hp do peixe: " + enemy.GetComponent<Enemy>().curHp);
                 }
             }
@@ -126,7 +130,7 @@ public class Player : MonoBehaviour
                     specialCd++;
                     healCd = 0; 
                     BattleControl.curTurn = 1;
-
+                    audioSource.PlayOneShot(healAudio, 1f);
                     Debug.Log("Gato curou | Hp do gato: " + curHp);
                 }
                 else
@@ -183,20 +187,21 @@ public class Player : MonoBehaviour
     private void Buff()
     {
         isBuffed = true;
-
+        audioSource.PlayOneShot(buffAudio, 1f);
         BattleControl.curTurn = 1;
     }
 
     private void Burn()
     {
         enemy.GetComponent<Enemy>().burning = true;
-
+        audioSource.PlayOneShot(burnAudio, 1f);
         BattleControl.curTurn = 1;         
     }
 
     private void Frost()
     {
         enemy.GetComponent<Enemy>().curHp -= 10;
+        audioSource.PlayOneShot(frostAudio, 1f);
         BattleControl.curTurn = 0;
     }
 }

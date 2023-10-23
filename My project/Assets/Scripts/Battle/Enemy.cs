@@ -5,20 +5,23 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private GameObject player;
+    public AudioClip atkAudio, healAudio, critAudio, burnAudio, frostAudio, buffAudio, deathAudio;
+    private AudioSource audioSource;
 
     public int maxHp, curHp, dmg, heal;
     public string specialType;
 
-    public bool isDead = false,  burning = false;
+    public bool isDead = false, burning = false;
     private bool isBuffed = false, canBurn = false;
 
     private int healCd = 1, specialCd = 3;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         player = BattleControl.player;
 
-        curHp = maxHp;        
+        curHp = maxHp;
     }
 
     private void Update()
@@ -26,7 +29,7 @@ public class Enemy : MonoBehaviour
         EnemyAi();
 
         Dead();
-        Burnning();
+        Burning();
     }
 
     private void Dead()
@@ -35,32 +38,34 @@ public class Enemy : MonoBehaviour
         {
             curHp = 0;
             isDead = true;
+            audioSource.PlayOneShot(deathAudio, 1f);
         }
     }
 
-    private void Burnning()
+    private void Burning()
     {
-        if(BattleControl.curTurn == 1)
+        if (BattleControl.curTurn == 1)
         {
             canBurn = true;
         }
 
-        if(canBurn && burning && BattleControl.curTurn == 0)
+        if (canBurn && burning && BattleControl.curTurn == 0)
         {
             curHp -= 5;
             Debug.Log("Gato está queimando");
-
+            audioSource.PlayOneShot(burnAudio, 1f);
             canBurn = false;
         }
     }
 
     public void EnemyAi()
     {
-        if(BattleControl.curTurn == 1){
+        if (BattleControl.curTurn == 1)
+        {
             float action;
             action = Random.Range(0, 30);
 
-            if(action <= 10)
+            if (action <= 10)
             {
                 Attack();
 
@@ -68,22 +73,23 @@ public class Enemy : MonoBehaviour
                 healCd++;
                 BattleControl.curTurn = 0;
             }
-            else if(action > 10 && action <= 20)
+            else if (action > 10 && action <= 20)
             {
-                if(curHp != maxHp && healCd >= 1){
+                if (curHp != maxHp && healCd >= 1)
+                {
                     Heal();
                     specialCd++;
                     healCd = 0;
                     BattleControl.curTurn = 0;
                 }
-                else if(curHp == maxHp || healCd < 1)
+                else if (curHp == maxHp || healCd < 1)
                 {
                     BattleControl.curTurn = 1;
-                }                
+                }
             }
             else
             {
-                if(specialCd >= 3)
+                if (specialCd >= 3)
                 {
                     switch (specialType)
                     {
@@ -117,7 +123,8 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        if(BattleControl.curTurn == 1){
+        if (BattleControl.curTurn == 1)
+        {
             int hitChance = Random.Range(0, 5); //0 = erra, 1, 2 ou 3 = ataque normal, 4 = crítico
 
             if (isBuffed)
@@ -131,13 +138,13 @@ public class Enemy : MonoBehaviour
                 else if (hitChance >= 3)
                 {
                     player.GetComponent<Player>().curHp -= dmgBuff * 2;
-
+                    audioSource.PlayOneShot(critAudio, 1f);
                     Debug.Log("Buff / Peixe deu dano crítico | Dano: " + dmgBuff * 2);
                 }
                 else
                 {
                     player.GetComponent<Player>().curHp -= dmgBuff;
-
+                    audioSource.PlayOneShot(atkAudio, 1f);
                     Debug.Log("Buff / Peixe atacou | Dano: " + dmgBuff);
                 }
 
@@ -152,16 +159,16 @@ public class Enemy : MonoBehaviour
                 else if (hitChance == 4)
                 {
                     player.GetComponent<Player>().curHp -= dmg * 2;
-
+                    audioSource.PlayOneShot(critAudio, 1f);
                     Debug.Log("Peixe deu dano crítico | Hp do gato: " + player.GetComponent<Player>().curHp);
                 }
                 else
                 {
                     player.GetComponent<Player>().curHp -= dmg;
-
+                    audioSource.PlayOneShot(atkAudio, 1f);
                     Debug.Log("Peixe atacou | Hp do gato: " + player.GetComponent<Player>().curHp);
                 }
-            }            
+            }
         }
     }
 
@@ -169,25 +176,30 @@ public class Enemy : MonoBehaviour
     {
         curHp += heal;
 
-            if (curHp > maxHp)
-            {
-                curHp = maxHp;
-            }
-            Debug.Log("Peixe curou | Hp do peixe: " + curHp);        
+        if (curHp > maxHp)
+        {
+            curHp = maxHp;
+        }
+
+        audioSource.PlayOneShot(healAudio, 1f);
+        Debug.Log("Peixe curou | Hp do peixe: " + curHp);
     }
 
     public void Buff()
     {
         isBuffed = true;
+        audioSource.PlayOneShot(buffAudio, 1f);
     }
 
     public void Burn()
     {
         player.GetComponent<Player>().burning = true;
+        audioSource.PlayOneShot(burnAudio, 1f);
     }
 
     public void Frost()
     {
         player.GetComponent<Player>().curHp -= 10;
+        audioSource.PlayOneShot(frostAudio, 1f);
     }
 }

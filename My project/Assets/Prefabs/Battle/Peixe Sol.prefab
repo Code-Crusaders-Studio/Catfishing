@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8868468030710215393}
   - component: {fileID: 2999037289739383538}
+  - component: {fileID: -1584440628514865542}
   m_Layer: 0
   m_Name: Peixe Sol
   m_TagString: Untagged
@@ -44,10 +45,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ef74b3c262e3e479ada5c2d3ddf330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atkAudio: {fileID: 8300000, guid: 69fd0a7e7ebaf464c8b361d3ecad07ae, type: 3}
+  healAudio: {fileID: 8300000, guid: 6e5d541f6b89cb941a8a52809794e333, type: 3}
+  critAudio: {fileID: 8300000, guid: 509597c17c32b4148a95c839e0c09393, type: 3}
+  burnAudio: {fileID: 8300000, guid: d1da48e1e80e33543ba09d04b940570f, type: 3}
+  frostAudio: {fileID: 8300000, guid: 0a4ede08a81e60e4d8fe5976c6009e7b, type: 3}
+  buffAudio: {fileID: 8300000, guid: 425b94ed493dc7c44ad4b5bd84cf0765, type: 3}
+  deathAudio: {fileID: 8300000, guid: 3b8aaabf86a7ff8478c78a9c61d55a45, type: 3}
   maxHp: 100
   curHp: 0
   dmg: 15
   heal: 20
   specialType: Queimar
   isDead: 0
-  isBuffed: 0
+  burning: 0
+--- !u!82 &-1584440628514865542
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6081456259532131116}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
