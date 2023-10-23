@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FishsFishing : MonoBehaviour
 {
+
+    private SpriteRenderer sprRend;
+
     //Velocidade andando, acrescimo de velocidade quando ele correr, velocidade final
     private float spdNormal = 5f, spdRun = 3f, spdFinal;
     //Direção para qual o peixe vai andar
@@ -13,6 +16,8 @@ public class FishsFishing : MonoBehaviour
 
     void Start()
     {
+        sprRend = GetComponent<SpriteRenderer>();
+
         //Dando uma direção inicial ao peixe
         int rand = Random.Range(0, 10);
 
@@ -40,6 +45,15 @@ public class FishsFishing : MonoBehaviour
         else if(transform.position.x < -5.5f)
         {
             dirX = 1;
+        }
+
+        if(dirX == -1)
+        {
+            sprRend.flipX = false;
+        }
+        else if(dirX == 1)
+        {
+            sprRend.flipX = true;
         }
         
         //Movendo o peixe

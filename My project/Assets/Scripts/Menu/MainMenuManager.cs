@@ -12,6 +12,9 @@ public class MainMenuManager : MonoBehaviour
     public void Play()
     {
         sceneLoader.Transition(sceneName);
+
+        SelectionManager.startGame = true;
+        SelectionManager.specialTypePlayer = "";
     }
 
     public void OpenCredits()

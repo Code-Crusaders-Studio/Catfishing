@@ -9,10 +9,13 @@ using UnityEngine.UI;
 public class Paw : MonoBehaviour
 {
     public Image mouseClickDisplay;
+    private bool mouseClickEnable = false;
 
     void Update()
     {
         mouseClickDisplay.transform.position = new Vector2(transform.position.x, transform.position.y - 2);
+
+        mouseClickDisplay.enabled = mouseClickEnable;
 
         //Método de movimentação da pata
         MovePaw();
@@ -24,7 +27,7 @@ public class Paw : MonoBehaviour
     {
         //A posição da pata é igual a posição do mouse na tela
         Vector2 posMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(posMouse.x, posMouse.y, transform.position.z);
+        transform.position = new Vector3(posMouse.x, posMouse.y + 1.5f, transform.position.z);
 
         if(transform.position.x > 5)
         {
@@ -35,13 +38,13 @@ public class Paw : MonoBehaviour
             transform.position = new Vector2(-5, transform.position.y);
         }
 
-        if(transform.position.y > 2)
+        if(transform.position.y > 2.5)
         {
-            transform.position = new Vector2(transform.position.x, 2);
+            transform.position = new Vector2(transform.position.x, 2.5f);
         }
-        else if(transform.position.y < -3)
+        else if(transform.position.y < -1)
         {
-            transform.position = new Vector2(transform.position.x, -3);
+            transform.position = new Vector2(transform.position.x, -1);
         }
     }
 
@@ -76,7 +79,7 @@ public class Paw : MonoBehaviour
     {
         if (col.CompareTag("Fish"))
         {
-            mouseClickDisplay.enabled = true;
+            mouseClickEnable = true;
         }
     }
 
@@ -84,7 +87,7 @@ public class Paw : MonoBehaviour
     {
         if (col.CompareTag("Fish"))
         {
-            mouseClickDisplay.enabled = false;
+            mouseClickEnable = false;
         }
     }
 }
