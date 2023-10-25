@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 705477896}
   - component: {fileID: 705477898}
   - component: {fileID: 705477897}
+  - component: {fileID: 705477899}
   m_Layer: 5
   m_Name: HP Bar Enemy
   m_TagString: Untagged
@@ -523,7 +524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3668577cd4bf2e048bcbcc1f36c51ff8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c537ac7e9eca0a04f8db258555395e8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -541,6 +542,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705477895}
   m_CullTransparentMesh: 1
+--- !u!95 &705477899
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705477895}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd3db2e47ccdd6148a02cf181224fba1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &864157153
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +730,7 @@ MonoBehaviour:
   prefFishs:
   - {fileID: 6081456259532131116, guid: 2d1ecbcbd98b2a84081923e4529627c7, type: 3}
   - {fileID: 8275761883074171486, guid: ed6d7fcad55ab89498331843499c2533, type: 3}
-  - {fileID: 6597172943217077474, guid: 2a7885abcedccd345803b3570e09ca7e, type: 3}
+  - {fileID: 6597172943217077474, guid: 8c71e30c1a8f38749998ac837a0a64ae, type: 3}
   fishNameDisplay: {fileID: 1710376077}
   fishHpDisplay: {fileID: 1541207545}
   catHpDisplay: {fileID: 1458961568}
@@ -835,6 +857,7 @@ GameObject:
   - component: {fileID: 1033713132}
   - component: {fileID: 1033713134}
   - component: {fileID: 1033713133}
+  - component: {fileID: 1033713135}
   m_Layer: 5
   m_Name: HP Bar Player
   m_TagString: Untagged
@@ -899,6 +922,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033713131}
   m_CullTransparentMesh: 1
+--- !u!95 &1033713135
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033713131}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65e253068b2ac454b92d2716bc711527, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1050947027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,8 +1334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -707, y: 380}
-  m_SizeDelta: {x: 236.43, y: 55.87}
+  m_AnchoredPosition: {x: -716, y: 379}
+  m_SizeDelta: {x: 175.19, y: 46.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1287981272
 MonoBehaviour:
@@ -1342,6 +1386,7 @@ GameObject:
   - component: {fileID: 1444488407}
   - component: {fileID: 1444488409}
   - component: {fileID: 1444488408}
+  - component: {fileID: 1444488410}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -1406,6 +1451,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444488406}
   m_CullTransparentMesh: 1
+--- !u!95 &1444488410
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444488406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3ff32266e537fdb4fb875ce6be08f6b2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1458961566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,7 +1506,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 762, y: 29.21}
+  m_AnchoredPosition: {x: 747, y: 29.21}
   m_SizeDelta: {x: 223.01, y: 58.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1458961568
@@ -1574,7 +1640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -452, y: 330}
+  m_AnchoredPosition: {x: -486, y: 329.1}
   m_SizeDelta: {x: 158.19, y: 45.77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1541207545
@@ -1660,7 +1726,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 9.627571, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1840,7 +1906,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -508.15002, y: 369}
+  m_AnchoredPosition: {x: -485.99994, y: 369}
   m_SizeDelta: {x: 538.34, y: 82.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710376077
@@ -2086,6 +2152,7 @@ GameObject:
   - component: {fileID: 1912885317}
   - component: {fileID: 1912885318}
   - component: {fileID: 1912885319}
+  - component: {fileID: 1912885320}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -2282,6 +2349,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1912885320
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912885315}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ed063eed87e01b4fb3073207a926181, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1952457604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +2647,7 @@ GameObject:
   - component: {fileID: 2062918873}
   - component: {fileID: 2062918875}
   - component: {fileID: 2062918874}
+  - component: {fileID: 2062918876}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -2623,6 +2712,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062918872}
   m_CullTransparentMesh: 1
+--- !u!95 &2062918876
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062918872}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8c73af520ab2084ebc4f3bf82764987, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2117273646
 GameObject:
   m_ObjectHideFlags: 0
